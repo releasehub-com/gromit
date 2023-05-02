@@ -1,6 +1,26 @@
 module Vapey
   module Rails
-    class SearchController < ApplicationController
+    class VapeyController < ApplicationController
+
+      def healthcheck
+        begin
+          # Send a PING command to Redis
+          redis_ping_response = redis.ping
+
+          # Check if the Redis server responded with "PONG"
+          if redis_ping_response == 'PONG'
+
+            # create the index if it's not already there
+            find_or_create_index
+            render json: { status: 'healthy', message: 'Redis connection is healthy' }
+          else
+            render json: { status: 'unhealthy', message: 'Redis connection is unhealthy' }
+          end
+        rescue Redis::CannotConnectError => e
+          # Handle connection errors
+          render json: { status: 'unhealthy', message: "Redis connection error: #{e.message}" }
+        end
+      end
 
       def search
         result = search_docs_with_embedding(params[:embedding])
@@ -18,7 +38,7 @@ module Vapey
         redis.json_set("item:#{id}", Rejson::Path.root_path, params.deep_stringify_keys)
 
         # Return a success response
-        redner json: { status: 'success', message: "Record upserted successfully", key: "item:#{id}" }
+        render json: { status: 'success', message: "Record upserted successfully", key: "item:#{id}" }
       end
 
       def search_docs_with_embedding(embedding)
@@ -56,7 +76,8 @@ module Vapey
         command = (preamble + schema.map{|name,type| "$.#{name} AS #{name} #{type}"}.join(" ")).split(" ")
         redis.call(command)
       rescue StandardError => e
-        puts "err: #{e}"
+        # Rails.logger.info "redis err: #{e}"
+        puts "redis err: #{e}"
       end
 
       def redis
