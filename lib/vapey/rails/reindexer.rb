@@ -37,7 +37,7 @@ class Vapey::Rails::Reindexer
       end
 
       # Instantiate the ToMkDocs class and perform the conversion
-      reindexer = Reindexer.new
+      reindexer = Vapey::Rails::Reindexer.new
       reindexer.run(options[:source_dir], drop: options[:drop]) 
 
       puts "Reindexer completed successfully."
@@ -55,7 +55,7 @@ class Vapey::Rails::Reindexer
     end
 
     directory ||= ENV.fetch("DOCS_DIRECTORY") { "/Users/david/development/docs/examples" }
-    sections = MarkdownParser.process(directory)
+    sections = Vapey::Rails::MarkdownParser.process(directory)
     sections.each do |section|
       puts "indexing: #{section[:file]} section: #{section[:section_title]}"
       data = section.stringify_keys

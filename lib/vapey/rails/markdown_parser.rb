@@ -25,7 +25,7 @@ class Vapey::Rails::MarkdownParser
         title = File.read(file_path).lines.first.strip.gsub(/^#\s+/,'')
         checksum = Digest::MD5.hexdigest(File.read(file_path))
 
-        parser = MarkdownParser.new(file_path)
+        parser = Vapey::Rails::MarkdownParser.new(file_path)
         sections = parser.sections.map do |section|
           section = process_markdown(section)
           section_title = section.lines.first.strip.gsub(/^i[#]+\s+/,'')
