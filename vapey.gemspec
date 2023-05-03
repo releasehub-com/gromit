@@ -1,8 +1,8 @@
-require_relative "lib/vapey/rails/version"
+require_relative "lib/vapey/version"
 
 Gem::Specification.new do |spec|
-  spec.name        = "vapey-rails"
-  spec.version     = Vapey::Rails::VERSION
+  spec.name        = "vapey"
+  spec.version     = Vapey::VERSION
   spec.authors     = ["David Giffin"]
   spec.email       = ["david@giffin.org"]
   spec.homepage    = "https://github.com/releasehub-com/vapey"

@@ -1,4 +1,4 @@
-Vapey::Rails::Engine.routes.draw do
+Vapey::Engine.routes.draw do
 
   scope '/', defaults: { format: :json } do
     get '/healthcheck', to: 'vapey#healthcheck'
