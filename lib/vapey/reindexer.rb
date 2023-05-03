@@ -11,7 +11,7 @@ require_relative 'markdown_parser'
 Dotenv.load
 
 
-class Vapey::Rails::Reindexer
+class Vapey::Reindexer
   attr_accessor :redis
 
   class << self
@@ -37,7 +37,7 @@ class Vapey::Rails::Reindexer
       end
 
       # Instantiate the ToMkDocs class and perform the conversion
-      reindexer = Vapey::Rails::Reindexer.new
+      reindexer = Vapey::Reindexer.new
       reindexer.run(options[:source_dir], drop: options[:drop]) 
 
       puts "Reindexer completed successfully."
@@ -49,45 +49,24 @@ class Vapey::Rails::Reindexer
   end
 
   def run(directory = nil, drop: false)
+    vapey = Vapey::Search.new
 
     if drop
-      recreate_index
+      vapey.recreate_index
     end
 
     directory ||= ENV.fetch("DOCS_DIRECTORY") { "/Users/david/development/docs/examples" }
-    sections = Vapey::Rails::MarkdownParser.process(directory)
+    sections = Vapey::MarkdownParser.process(directory)
     sections.each do |section|
       puts "indexing: #{section[:file]} section: #{section[:section_title]}"
       data = section.stringify_keys
       id = data['id']
-      redis.json_set("item:#{id}", Rejson::Path.root_path, data)
+      vapey.redis.json_set("item:#{id}", Rejson::Path.root_path, data)
     end
-  end
-
-  def recreate_index
-    puts "dropping index"
-    redis.call(["FT.DROP", "index"])
-    schema = {
-      id: "TAG",
-      page_id: "TAG",
-      section_id: "TAG",
-      file: "TEXT",
-      title: "TEXT",
-      content: "TEXT",
-      checksum: "TEXT",
-      token_count: "NUMERIC",
-      embedding: "VECTOR FLAT 6 DIM 1536 DISTANCE_METRIC COSINE TYPE FLOAT64",
-    }
-    preamble = "FT.CREATE index ON JSON PREFIX 1 item: SCHEMA "
-    command = (preamble + schema.map{|name,type| "$.#{name} AS #{name} #{type}"}.join(" ")).split(" ")
-    puts "creating index"
-    redis.call(command)
-  rescue StandardError => e
-    puts "err: #{e}"
   end
 
 end
 
 if __FILE__ == $0
-  Vapey::Rails::Reindexer::invoke
+  Vapey::Reindexer::invoke
 end
