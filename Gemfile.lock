@@ -7,6 +7,8 @@ PATH
       rails (>= 7.0.1)
       redis (~> 4.2)
       rejson-rb (>= 1.0.1)
+      rspec
+      rspec-expectations
       ruby-openai
 
 GEM
@@ -81,6 +83,7 @@ GEM
     concurrent-ruby (1.2.2)
     crass (1.0.6)
     date (3.3.3)
+    diff-lcs (1.5.0)
     dotenv (2.8.1)
     erubi (1.12.0)
     faraday (2.7.4)
@@ -158,6 +161,19 @@ GEM
     rejson-rb (1.0.1)
       json (~> 2.0)
       redis (~> 4.2.1)
+    rspec (3.12.0)
+      rspec-core (~> 3.12.0)
+      rspec-expectations (~> 3.12.0)
+      rspec-mocks (~> 3.12.0)
+    rspec-core (3.12.2)
+      rspec-support (~> 3.12.0)
+    rspec-expectations (3.12.3)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.12.0)
+    rspec-mocks (3.12.5)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.12.0)
+    rspec-support (3.12.0)
     ruby-openai (4.0.0)
       faraday (>= 1)
       faraday-multipart (>= 1)
