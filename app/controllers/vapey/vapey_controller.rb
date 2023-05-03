@@ -12,14 +12,16 @@ module Vapey
         if redis_ping_response == 'PONG'
 
           # create the index if it's not already there
-          find_or_create_index
-          render json: { status: 'healthy', message: 'Redis connection is healthy' }
+          vapey.create_index
         else
           render json: { status: 'unhealthy', message: 'Redis connection is unhealthy' }
         end
-      rescue Redis::CannotConnectError => e
-        # Handle connection errors
-        render json: { status: 'unhealthy', message: "Redis connection error: #{e.message}" }
+      rescue Redis::CommandError, Redis::CannotConnectError => e
+        if e.message == "Index already exists"
+          render json: { status: 'healthy', message: 'Redis connection is healthy' }
+        else
+          render json: { status: 'unhealthy', message: "Redis connection error: #{e.message}" }
+        end
       end
     end
 
