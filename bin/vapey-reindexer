@@ -1,4 +1,4 @@
 #!/usr/bin/env ruby
 
-require 'vapey/rails/core'
-Vapey::Rails::Reindexer.invoke
+require 'vapey/core'
+Vapey::Reindexer.invoke

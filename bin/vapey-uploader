@@ -1,4 +1,4 @@
 #!/usr/bin/env ruby
 
-require 'vapey/rails/core'
-Vapey::Rails::Uploader.invoke
+require 'vapey/core'
+Vapey::Uploader.invoke
