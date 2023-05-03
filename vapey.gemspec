@@ -28,4 +28,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency "ruby-openai"
   spec.add_dependency "httparty"
   spec.add_dependency "dotenv"
+  spec.add_dependency "rspec"
+  spec.add_dependency "rspec-expectations"
 end
