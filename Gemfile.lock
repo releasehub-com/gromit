@@ -3,6 +3,7 @@ PATH
   specs:
     vapey-rails (0.1.0)
       dotenv
+      httparty
       rails (>= 7.0.1)
       redis (~> 4.2)
       rejson-rb (>= 1.0.1)
@@ -90,6 +91,9 @@ GEM
     faraday-net_http (3.0.2)
     globalid (1.1.0)
       activesupport (>= 5.0)
+    httparty (0.21.0)
+      mini_mime (>= 1.0.0)
+      multi_xml (>= 0.5.2)
     i18n (1.13.0)
       concurrent-ruby (~> 1.0)
     json (2.6.3)
@@ -105,6 +109,7 @@ GEM
     method_source (1.0.0)
     mini_mime (1.1.2)
     minitest (5.18.0)
+    multi_xml (0.6.0)
     multipart-post (2.3.0)
     net-imap (0.3.4)
       date

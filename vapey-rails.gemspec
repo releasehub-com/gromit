@@ -26,5 +26,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency "redis", "~> 4.2"
   spec.add_dependency "rejson-rb", ">= 1.0.1"
   spec.add_dependency "ruby-openai"
+  spec.add_dependency "httparty"
   spec.add_dependency "dotenv"
 end
