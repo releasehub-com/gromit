@@ -1,4 +1,4 @@
 # desc "Explaining what the task does"
-# task :vapey_rails do
+# task :gromit do
 #   # Task goes here
 # end

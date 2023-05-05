@@ -1,3 +1,3 @@
-module Vapey
+module Gromit
   VERSION = "0.1.0"
 end

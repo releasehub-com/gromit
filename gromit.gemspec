@@ -1,13 +1,13 @@
-require_relative "lib/vapey/version"
+require_relative "lib/gromit/version"
 
 Gem::Specification.new do |spec|
-  spec.name        = "vapey"
-  spec.version     = Vapey::VERSION
+  spec.name        = "gromit"
+  spec.version     = Gromit::VERSION
   spec.authors     = ["David Giffin"]
   spec.email       = ["david@giffin.org"]
-  spec.homepage    = "https://github.com/releasehub-com/vapey"
-  spec.summary     = "vapey: vector search and indexing of your documentation"
-  spec.description = "vapey uses redis and openai embeddings to index your documentation"
+  spec.homepage    = "https://github.com/releasehub-com/gromit"
+  spec.summary     = "gromit: vector search and indexing of your documentation"
+  spec.description = "gromit uses redis and openai embeddings to index your documentation"
     spec.license     = "MIT"
   
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the "allowed_push_host"
@@ -15,8 +15,8 @@ Gem::Specification.new do |spec|
   spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
 
   spec.metadata["homepage_uri"] = spec.homepage
-  spec.metadata["source_code_uri"] = "https://github.com/releasehub-com/vapey-rails"
-  spec.metadata["changelog_uri"] = "https://github.com/releasehub-com/vapey-rails/README.md"
+  spec.metadata["source_code_uri"] = "https://github.com/releasehub-com/gromit"
+  spec.metadata["changelog_uri"] = "https://github.com/releasehub-com/gromit/README.md"
 
   spec.files = Dir.chdir(File.expand_path(__dir__)) do
     Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]

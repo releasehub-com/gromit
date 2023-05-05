@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    vapey (0.1.0)
+    gromit (0.1.0)
       dotenv
       httparty
       rails (>= 7.0.1)
@@ -191,7 +191,7 @@ PLATFORMS
   x86_64-darwin-19
 
 DEPENDENCIES
-  vapey!
+  gromit!
 
 BUNDLED WITH
    2.2.32

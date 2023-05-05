@@ -1,5 +1,5 @@
-module Vapey
+module Gromit
   class Engine < ::Rails::Engine
-    isolate_namespace Vapey
+    isolate_namespace Gromit
   end
 end

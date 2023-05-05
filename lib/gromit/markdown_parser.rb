@@ -1,5 +1,5 @@
 
-class Vapey::MarkdownParser
+class Gromit::MarkdownParser
   attr_reader :sections
 
   class << self 
@@ -25,7 +25,7 @@ class Vapey::MarkdownParser
         title = File.read(file_path).lines.first.strip.gsub(/^#\s+/,'')
         checksum = Digest::MD5.hexdigest(File.read(file_path))
 
-        parser = Vapey::MarkdownParser.new(file_path)
+        parser = Gromit::MarkdownParser.new(file_path)
         sections = parser.sections.map do |section|
           section = process_markdown(section)
           section_title = section.lines.first.strip.gsub(/^i[#]+\s+/,'')

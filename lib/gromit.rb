@@ -1,7 +1,7 @@
-require "vapey/version"
-require "vapey/engine"
+require "gromit/version"
+require "gromit/engine"
 
-module Vapey
+module Gromit
   class Search
 
     def find_by_embedding(embedding)

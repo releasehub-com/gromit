@@ -8,13 +8,13 @@ require_relative 'markdown_parser'
 Dotenv.load
 
 
-class Vapey::Uploader
+class Gromit::Uploader
 
   class << self
     def invoke(directory = nil)
       # TODO: add command line args / OptionParser
       directory ||= ENV.fetch("DOCS_DIRECTORY") { "/Users/david/development/docs/examples" }
-      sections = Vapey::MarkdownParser.process(directory)
+      sections = Gromit::MarkdownParser.process(directory)
       sections.each do |section|
         puts "uploading: #{section[:file]} section: #{section[:section_title]}"
         Uploader::Partay.post('/upsert', { headers: {"Content-Type": "application/json"}, body: section.to_json })

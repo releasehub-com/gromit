@@ -1,4 +1,4 @@
-module Vapey
+module Gromit
   class ApplicationController < ActionController::Base
   end
 end

@@ -11,7 +11,7 @@ require_relative 'markdown_parser'
 Dotenv.load
 
 
-class Vapey::Reindexer
+class Gromit::Reindexer
   attr_accessor :redis
 
   class << self
@@ -37,7 +37,7 @@ class Vapey::Reindexer
       end
 
       # Instantiate the ToMkDocs class and perform the conversion
-      reindexer = Vapey::Reindexer.new
+      reindexer = Gromit::Reindexer.new
       reindexer.run(options[:source_dir], drop: options[:drop]) 
 
       puts "Reindexer completed successfully."
@@ -49,24 +49,24 @@ class Vapey::Reindexer
   end
 
   def run(directory = nil, drop: false)
-    vapey = Vapey::Search.new
+    gromit = Gromit::Search.new
 
     if drop
-      vapey.recreate_index
+      gromit.recreate_index
     end
 
     directory ||= ENV.fetch("DOCS_DIRECTORY") { "/Users/david/development/docs/examples" }
-    sections = Vapey::MarkdownParser.process(directory)
+    sections = Gromit::MarkdownParser.process(directory)
     sections.each do |section|
       puts "indexing: #{section[:file]} section: #{section[:section_title]}"
       data = section.stringify_keys
       id = data['id']
-      vapey.redis.json_set("item:#{id}", Rejson::Path.root_path, data)
+      gromit.redis.json_set("item:#{id}", Rejson::Path.root_path, data)
     end
   end
 
 end
 
 if __FILE__ == $0
-  Vapey::Reindexer::invoke
+  Gromit::Reindexer::invoke
 end

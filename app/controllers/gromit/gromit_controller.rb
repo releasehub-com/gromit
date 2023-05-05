@@ -1,18 +1,18 @@
-module Vapey
-  class VapeyController < ApplicationController
+module Gromit
+  class GromitController < ApplicationController
 
     def healthcheck
-      vapey = Vapey::Search.new
+      gromit = Gromit::Search.new
 
       begin
         # Send a PING command to Redis
-        redis_ping_response = vapey.redis.ping
+        redis_ping_response = gromit.redis.ping
 
         # Check if the Redis server responded with "PONG"
         if redis_ping_response == 'PONG'
 
           # create the index if it's not already there
-          vapey.create_index
+          gromit.create_index
         else
           render json: { status: 'unhealthy', message: 'Redis connection is unhealthy' }
         end
@@ -26,13 +26,13 @@ module Vapey
     end
 
     def search
-      vapey = Vapey::Search.new
-      result = vapey.find_by_embedding(params[:embedding])
+      gromit = Gromit::Search.new
+      result = gromit.find_by_embedding(params[:embedding])
       render json: result
     end
 
     def upsert
-      vapey = Vapey::Search.new
+      gromit = Gromit::Search.new
 
       # Hopefully don't have to do this
       ## json_params = JSON.parse(request.raw_post) 
@@ -41,7 +41,7 @@ module Vapey
       id = params[:id]
 
       # Upsert the record into the Redis database
-      vapey.redis.json_set("item:#{id}", Rejson::Path.root_path, params.deep_stringify_keys)
+      gromit.redis.json_set("item:#{id}", Rejson::Path.root_path, params.deep_stringify_keys)
 
       # Return a success response
       render json: { status: 'success', message: "Record upserted successfully", key: "item:#{id}" }

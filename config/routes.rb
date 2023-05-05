@@ -1,8 +1,8 @@
-Vapey::Engine.routes.draw do
+Gromit::Engine.routes.draw do
 
   scope '/', defaults: { format: :json } do
-    get '/healthcheck', to: 'vapey#healthcheck'
-    post '/search', to: 'vapey#search'
-    post '/upsert', to: 'vapey#upsert'
+    get '/healthcheck', to: 'gromit#healthcheck'
+    post '/search', to: 'gromit#search'
+    post '/upsert', to: 'gromit#upsert'
   end
 end
