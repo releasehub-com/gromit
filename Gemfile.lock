@@ -196,6 +196,7 @@ PLATFORMS
 DEPENDENCIES
   gromit!
   pry
+  rake
   rspec
   rspec-expectations
 
