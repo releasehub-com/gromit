@@ -1,7 +1,7 @@
 require "test_helper"
 
-class Vapey::RailsTest < ActiveSupport::TestCase
+class Gromit::RailsTest < ActiveSupport::TestCase
   test "it has a version number" do
-    assert Vapey::Rails::VERSION
+    assert Gromit::Rails::VERSION
   end
 end

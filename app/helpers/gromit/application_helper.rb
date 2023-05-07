@@ -1,4 +1,4 @@
-module Vapey
+module Gromit
   module Rails
     module ApplicationHelper
     end

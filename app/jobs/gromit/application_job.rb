@@ -1,4 +1,4 @@
-module Vapey
+module Gomit
   module Rails
     class ApplicationJob < ActiveJob::Base
     end
