@@ -78,6 +78,7 @@ GEM
       minitest (>= 5.1)
       tzinfo (~> 2.0)
     builder (3.2.4)
+    byebug (11.1.3)
     coderay (1.1.3)
     concurrent-ruby (1.2.2)
     crass (1.0.6)
@@ -128,6 +129,9 @@ GEM
     pry (0.13.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
+    pry-byebug (3.10.1)
+      byebug (~> 11.0)
+      pry (>= 0.13, < 0.15)
     racc (1.6.2)
     rack (2.2.7)
     rack-test (2.1.0)
@@ -196,6 +200,7 @@ PLATFORMS
 DEPENDENCIES
   gromit!
   pry
+  pry-byebug
   rake
   rspec
   rspec-expectations

@@ -1,8 +1,23 @@
+require 'pry'
 require "gromit/version"
 require "gromit/engine"
 
 module Gromit
   class Search
+
+    EMBEDDINGS_SCHEMA = {
+      id: "TAG",
+      page_id: "TAG",
+      section_id: "TAG",
+      file: "TEXT",
+      title: "TEXT",
+      content: "TEXT",
+      checksum: "TEXT",
+      token_count: "NUMERIC",
+      embedding: "VECTOR FLAT 6 DIM 1536 DISTANCE_METRIC COSINE TYPE FLOAT64",
+    }
+
+    EMBEDDINGS_PREAMBLE = "FT.CREATE index ON JSON PREFIX 1 item: SCHEMA "
 
     def find_by_embedding(embedding)
       results = redis.call([
@@ -29,19 +44,7 @@ module Gromit
     end
 
     def create_index
-      schema = {
-        id: "TAG",
-        page_id: "TAG",
-        section_id: "TAG",
-        file: "TEXT",
-        title: "TEXT",
-        content: "TEXT",
-        checksum: "TEXT",
-        token_count: "NUMERIC",
-        embedding: "VECTOR FLAT 6 DIM 1536 DISTANCE_METRIC COSINE TYPE FLOAT64",
-      }
-      preamble = "FT.CREATE index ON JSON PREFIX 1 item: SCHEMA "
-      command = (preamble + schema.map{|name,type| "$.#{name} AS #{name} #{type}"}.join(" ")).split(" ")
+      command = (EMBEDDINGS_PREAMBLE + EMBEDDINGS_SCHEMA.map{|name,type| "$.#{name} AS #{name} #{type}"}.join(" ")).split(" ")
       redis.call(command)
     end
 

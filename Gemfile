@@ -8,6 +8,7 @@ gemspec
 
 group :development do
   gem "pry"
+  gem "pry-byebug"
   gem "rake"
   gem "rspec"
   gem "rspec-expectations"
