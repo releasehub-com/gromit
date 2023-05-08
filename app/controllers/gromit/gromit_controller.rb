@@ -1,3 +1,5 @@
+require 'rejson'
+
 module Gromit
   class GromitController < ApplicationController
     skip_before_action :verify_authenticity_token
@@ -42,7 +44,7 @@ module Gromit
       id = params[:id]
 
       # Upsert the record into the Redis database
-      gromit.redis.json_set("item:#{id}", Rejson::Path.root_path, params.deep_stringify_keys)
+      gromit.redis.json_set("item:#{id}", Rejson::Path.root_path, params.to_unsafe_h.deep_stringify_keys)
 
       # Return a success response
       render json: { status: 'success', message: "Record upserted successfully", key: "item:#{id}" }

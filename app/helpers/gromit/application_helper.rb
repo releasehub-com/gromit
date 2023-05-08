@@ -1,6 +1,4 @@
 module Gromit
-  module Rails
-    module ApplicationHelper
-    end
+  module ApplicationHelper
   end
 end
