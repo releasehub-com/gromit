@@ -31,7 +31,7 @@ module Gromit
     def search
       gromit = Gromit::Search.new
       result = gromit.find_by_embedding(params[:embedding])
-      render json: result
+      render json: { error: "", data: result }
     end
 
     def upsert
