@@ -94,7 +94,6 @@ class Gromit::MarkdownParser
 
       # handle "mentions" 
       file.gsub!(/\[([^\]]+?).md\]\((.*?)\.md([#a-z0-9]*) "mention"\)/) do |match|
-        binding.pry
         link = "#{$2}#{$3}"
         title = $1.gsub("-", ' ').titleize
         "[#{title}](#{link})" 
