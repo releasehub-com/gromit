@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    gromit (0.1.4)
+    gromit (0.1.5)
       dotenv
       httparty
       rails (>= 7.0.1)
