@@ -3,7 +3,11 @@ Your documentation search assitant
 
 ## Usage
 
-Make sure to 
+Make sure to provide your OpenAI key in a `.env` file
+```
+OPENAPI_ACCESS_TOKEN=your-openai-token
+```
+
 To mount the Gromit engine in Rails 7 add this line to your routes:
 ```ruby
 Rails.application.routes.draw do
