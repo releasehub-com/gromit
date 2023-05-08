@@ -132,10 +132,15 @@ RSpec.describe Gromit::MarkdownParser do
   end
 
   describe '.process_markdown' do
+    let(:file_path) { "spec/fixtures/readme_sample.md" }
+    let(:file) { File.read(file_path) }
 
+    it "processes the file" do
+      puts described_class.process_markdown(file)
+    end
   end
 
-  describe '.initialize' do
+  describe '.new' do
     it "sets file_path, sections and calls parse file" do
       allow_any_instance_of(described_class).to receive(:parse_file)
       
