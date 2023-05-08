@@ -1,6 +1,6 @@
 
 class Gromit::MarkdownParser
-  attr_reader :sections
+  attr_reader :sections, :file_path
 
   class << self 
 
@@ -58,7 +58,6 @@ class Gromit::MarkdownParser
       data = redis.get(section_id)
 
       if data.nil?
-
         # OpenAI recommends replacing newlines with spaces for best results (specific to embeddings)
         input = section.gsub(/\n/m, ' ')
         response = openai.embeddings(parameters: { input: input, model: "text-embedding-ada-002"})
@@ -121,7 +120,7 @@ class Gromit::MarkdownParser
 
   def parse_file
     current_section = []
-    File.read(@file_path).lines do |line|
+    File.read(file_path).lines do |line|
       # Check if the line is a header (starts with one or more '#' characters)
       if header?(line)
         # Save the previous section if it's not empty

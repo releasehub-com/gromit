@@ -61,17 +61,14 @@ RSpec.describe Gromit::Search do
   end
 
   describe "#redis" do
+    let(:redis) { double('DoubleRedis') }
+    
     before do
-      allow(ENV).to receive(:fetch).with("REDIS_HOST") { "127.0.0.1" }
-      allow(ENV).to receive(:fetch).with("REDIS_PORT") { "6379" }
+      expect(Gromit::MarkdownParser).to receive(:redis).and_return(redis)
     end
 
-    it "creates a Redis instance with the correct host and port" do
-      redis_instance = subject.redis
-
-      expect(redis_instance).to be_an_instance_of(Redis)
-      expect(redis_instance._client.host).to eq("127.0.0.1")
-      expect(redis_instance._client.port).to eq(6379)
+    it "gets redis object from the markdown parser class" do
+      expect(subject.redis).to be(redis)
     end
 
     it "uses the same Redis instance for subsequent calls" do
