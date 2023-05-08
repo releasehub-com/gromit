@@ -25,6 +25,7 @@ class Gromit::Uploader
       end.parse!
 
       path = Pathname.new(options.fetch(:source_dir, ''))
+      
       unless path.exist?
         puts "Error: The source directory (-s or --source) doesn't exist or is not specified."
         exit 1
@@ -33,7 +34,7 @@ class Gromit::Uploader
       sections = Gromit::MarkdownParser.process(path.to_s)
       sections.each do |section|
         puts "uploading: #{section[:file]} section: #{section[:section_title]}"
-        Uploader::Partay.post('/upsert', { headers: {"Content-Type": "application/json"}, body: section.to_json })
+        Partay.post('/upsert', { headers: {"Content-Type" => "application/json"}, body: section.to_json })
       end
     end
   end

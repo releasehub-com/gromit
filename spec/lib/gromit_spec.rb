@@ -1,6 +1,3 @@
-require 'redis'
-require_relative "../../lib/gromit"
-
 RSpec.describe Gromit::Search do
   let(:subject) { described_class.new }
   let(:embedding) { [0.1, 0.2, 0.3, 0.4, 0.5, 0.6] * 256 } # 6-dimensional vector repeated 256 times to form a 1536-dimensional vector
