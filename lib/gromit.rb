@@ -1,5 +1,6 @@
 require "gromit/version"
 require "gromit/engine"
+require "gromit/markdown_parser"
 
 module Gromit
   class Search
