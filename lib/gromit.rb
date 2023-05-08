@@ -1,4 +1,3 @@
-require 'pry'
 require "gromit/version"
 require "gromit/engine"
 

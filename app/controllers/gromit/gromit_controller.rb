@@ -1,5 +1,6 @@
 module Gromit
   class GromitController < ApplicationController
+    skip_before_action :verify_authenticity_token
 
     def healthcheck
       gromit = Gromit::Search.new
