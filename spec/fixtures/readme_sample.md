@@ -15,6 +15,8 @@ Find out more about Release:
 
 Release supports standalone **static sites** running without Docker backends. These sites are pushed into a CDN and hosted on your behalf. [See Static service deployment](reference-guide/static-service-deployment.md) for more information.
 
+Can be set to expire automatically, can be renewed during push event or manually [environment-expiration.md](reference-guide/environment-expiration.md "mention")
+
 {% hint style="fail" %}
 Don't fail
 
