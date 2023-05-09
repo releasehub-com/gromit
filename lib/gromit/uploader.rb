@@ -1,14 +1,10 @@
 require 'bundler/setup'
 require 'openai'
 require 'httparty'
-require 'dotenv'
 require 'pathname'
 require 'optparse'
 
 require_relative 'markdown_parser'
-
-Dotenv.load
-
 
 class Gromit::Uploader
 
@@ -25,7 +21,7 @@ class Gromit::Uploader
       end.parse!
 
       path = Pathname.new(options.fetch(:source_dir, ''))
-      
+
       unless path.exist?
         puts "Error: The source directory (-s or --source) doesn't exist or is not specified."
         exit 1

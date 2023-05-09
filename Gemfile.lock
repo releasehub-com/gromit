@@ -2,7 +2,6 @@ PATH
   remote: .
   specs:
     gromit (0.1.5)
-      dotenv
       httparty
       rails (>= 7.0.1)
       redis (~> 4.2)
@@ -207,6 +206,7 @@ PLATFORMS
   x86_64-darwin-21
 
 DEPENDENCIES
+  dotenv
   gromit!
   pry
   pry-byebug

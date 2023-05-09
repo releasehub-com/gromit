@@ -1,15 +1,11 @@
 require 'bundler/setup'
 require 'openai'
-require 'dotenv'
 require 'optparse'
 require 'redis'
 require 'rejson'
 require 'active_support/all'
 
 require_relative 'markdown_parser'
-
-Dotenv.load
-
 
 class Gromit::Reindexer
   attr_accessor :redis
@@ -24,7 +20,7 @@ class Gromit::Reindexer
           options[:source_dir] = source_dir
         end
 
-        opts.on('-d', '--drop', 'Drop and create index before reindexing') do 
+        opts.on('-d', '--drop', 'Drop and create index before reindexing') do
           options[:drop] = true
         end
 
@@ -38,7 +34,7 @@ class Gromit::Reindexer
 
       # Instantiate the ToMkDocs class and perform the conversion
       reindexer = Gromit::Reindexer.new
-      reindexer.run(options[:source_dir], drop: options[:drop]) 
+      reindexer.run(options[:source_dir], drop: options[:drop])
 
       puts "Reindexer completed successfully."
     end
