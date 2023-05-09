@@ -12,4 +12,6 @@ group :development do
   gem "rake"
   gem "rspec"
   gem "rspec-expectations"
+  gem "rspec-rails", "~> 4"
+  gem "sqlite3"
 end
