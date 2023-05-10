@@ -49,7 +49,7 @@ module Gromit
     end
 
     def redis
-      @redis ||= ::Gromit::MarkdownParser.redis
+      @redis ||= Gromit::MarkdownParser.redis
     end
 
   end
