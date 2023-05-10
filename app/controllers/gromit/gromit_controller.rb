@@ -5,7 +5,7 @@ module Gromit
     skip_before_action :verify_authenticity_token
 
     def healthcheck
-      gromit = Gromit::Search.new
+      gromit = ::Gromit::Search.new
 
       begin
         # Send a PING command to Redis
@@ -16,6 +16,7 @@ module Gromit
 
           # create the index if it's not already there
           gromit.create_index
+          render json: { status: 'healthy', message: 'Redis connection is healthy' }
         else
           render json: { status: 'unhealthy', message: 'Redis connection is unhealthy' }
         end
@@ -29,13 +30,13 @@ module Gromit
     end
 
     def search
-      gromit = Gromit::Search.new
+      gromit = ::Gromit::Search.new
       result = gromit.find_by_embedding(params[:embedding])
       render json: { error: "", data: result }
     end
 
     def upsert
-      gromit = Gromit::Search.new
+      gromit = ::Gromit::Search.new
 
       # Hopefully don't have to do this
       ## json_params = JSON.parse(request.raw_post) 
