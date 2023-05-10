@@ -132,10 +132,31 @@ RSpec.describe Gromit::MarkdownParser do
   end
 
   describe '.process_markdown' do
+    let(:file_path) { "spec/fixtures/readme_sample.md" }
+    let(:file) { File.read(file_path) }
+
+    #tried doing the below a HERE doc first, but there was some new line or invisible formatting errors
+    #when i do it as one long string it seems to work
+    let(:markdown_expects) do 
+      "---\ndescription: Release simplifies development by making the creation of environments easy\n---\n\n# Welcome" \
+      " to Release\n!!! success\n    \n    Find out more about Release:\n    \n    * [Request a demo of Release to get " \
+      "started](https://releasehub.com)\n    * [Send questions directly to the team](mailto:hello@releasehub.com)\n\n\n\n" \
+      "### Static sites\n\nRelease supports standalone **static sites** running without Docker backends. These sites are" \
+      " pushed into a CDN and hosted on your behalf. [See Static service deployment](reference-guide/static-service-deployment)" \
+      " for more information.\n\nCan be set to expire automatically, can be renewed during push event or manually " \
+      "[Environment Expiration](reference-guide/environment-expiration)\n\n!!! fail\n    \n    Don't fail\n    \n\n\n![]" \
+      "(https://docs-mkdocs.releaseapp.io/img/2-repo-select-go-nginx-new.png)\n![](https://docs-mkdocs.releaseapp.io/img/rails" \
+      "\\_postgres\\_redis\\_backend\\_name.png)\n![Domains page](<https://docs-mkdocs.releaseapp.io/img/Screen Shot 2022-03-30" \
+      " at 12.52.48 PM.png>)\n"
+    end
+
+    it "processes the file" do
+      expect(described_class.process_markdown(file)).to eq(markdown_expects)
+    end
 
   end
 
-  describe '.initialize' do
+  describe '.new' do
     it "sets file_path, sections and calls parse file" do
       allow_any_instance_of(described_class).to receive(:parse_file)
       

@@ -45,7 +45,7 @@ class Gromit::Reindexer
   end
 
   def initialize
-    @redis ||= Redis.new(host: ENV.fetch("REDIS_HOST") { "127.0.0.1" }, port: ENV.fetch("REDIS_PORT") { "6379" }.to_i)
+    @redis ||= Gromit::MarkdownParser.redis
   end
 
   def run(directory = nil, drop: false)
@@ -55,6 +55,7 @@ class Gromit::Reindexer
       gromit.recreate_index
     end
 
+    #TODO do we really want david's examples as the default here?
     directory ||= ENV.fetch("DOCS_DIRECTORY") { "/Users/david/development/docs/examples" }
     sections = Gromit::MarkdownParser.process(directory)
     sections.each do |section|
