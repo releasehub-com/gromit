@@ -5,7 +5,7 @@ RSpec.describe Gromit::GromitController, type: :controller do
   let(:redis) { double('Redis') }
   let(:gromit) { double('Gromit') }
 
-  describe '#healthcheck' do
+  describe 'GET #healthcheck' do
     context "no exceptions thrown" do
       before do
         expect(Gromit::Search).to receive(:new).and_return(gromit)
@@ -33,59 +33,56 @@ RSpec.describe Gromit::GromitController, type: :controller do
     end
 
     context "redis errors" do
-      describe 'GET #healthcheck' do
-        it 'has a bad command error' do
-          expect(Gromit::Search).to receive(:new).and_wrap_original do |klass, *args|
-            gromit = klass.call(*args)
+      it 'has a bad command error' do
+        expect(Gromit::Search).to receive(:new).and_wrap_original do |klass, *args|
+          gromit = klass.call(*args)
 
-            expect(gromit).to receive(:redis).and_raise(Redis::CommandError)
+          expect(gromit).to receive(:redis).and_raise(Redis::CommandError)
 
-            gromit
-          end
-
-          get :healthcheck
-          expect(response).to have_http_status(:bad_request)
-          expect(JSON.parse(response.body)).to eq({"status"=>"unhealthy", "message"=>"Unknown command error"})
+          gromit
         end
 
-        it 'has a command error, but the index is fine' do
-          error = Redis::CommandError.new("Index already exists")
+        get :healthcheck
+        expect(response).to have_http_status(:bad_request)
+        expect(JSON.parse(response.body)).to eq({"status"=>"unhealthy", "message"=>"Unknown command error"})
+      end
 
-          expect(Gromit::Search).to receive(:new).and_wrap_original do |klass, *args|
-            gromit = klass.call(*args)
+      it 'has a command error, but the index is fine' do
+        error = Redis::CommandError.new("Index already exists")
 
-            expect(gromit).to receive(:redis).and_raise(error)
+        expect(Gromit::Search).to receive(:new).and_wrap_original do |klass, *args|
+          gromit = klass.call(*args)
 
-            gromit
-          end
+          expect(gromit).to receive(:redis).and_raise(error)
 
-          get :healthcheck
-          expect(response).to have_http_status(:ok)
-          expect(JSON.parse(response.body)).to eq({"status"=>"healthy", "message"=>"Redis connection is healthy"})
+          gromit
         end
 
-        it 'cannont connect to redis' do
-          error = Redis::CannotConnectError.new("redis has gone away")
+        get :healthcheck
+        expect(response).to have_http_status(:ok)
+        expect(JSON.parse(response.body)).to eq({"status"=>"healthy", "message"=>"Redis connection is healthy"})
+      end
 
-          expect(Gromit::Search).to receive(:new).and_wrap_original do |klass, *args|
-            gromit = klass.call(*args)
+      it 'cannont connect to redis' do
+        error = Redis::CannotConnectError.new("redis has gone away")
 
-            expect(gromit).to receive(:redis).and_raise(error)
+        expect(Gromit::Search).to receive(:new).and_wrap_original do |klass, *args|
+          gromit = klass.call(*args)
 
-            gromit
-          end
+          expect(gromit).to receive(:redis).and_raise(error)
 
-          get :healthcheck
-          expect(response).to have_http_status(Gromit::GromitController::IM_A_TEAPOT)
-          expect(JSON.parse(response.body)).to eq({"status"=>"unhealthy", "message"=>"Redis connection error: redis has gone away"})
+          gromit
         end
 
+        get :healthcheck
+        expect(response).to have_http_status(Gromit::GromitController::IM_A_TEAPOT)
+        expect(JSON.parse(response.body)).to eq({"status"=>"unhealthy", "message"=>"Redis connection error: redis has gone away"})
       end
     end
   end
 
   
-  describe '#search' do
+  describe 'POST #search' do
     it "calls find_by_embeddings with correct params" do
       embedding_params = {"some" => "stuff"}
       params = {embedding: embedding_params}
@@ -99,7 +96,7 @@ RSpec.describe Gromit::GromitController, type: :controller do
     end
   end
 
-  describe '#upsert' do
+  describe 'POST #upsert' do
     it "upserts correctly" do
       item_id = "23434324"
       params = {"id" => item_id, "other" => "stuff"}
