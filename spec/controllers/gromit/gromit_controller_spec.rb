@@ -43,7 +43,7 @@ RSpec.describe Gromit::GromitController, type: :controller do
         end
 
         get :healthcheck
-        expect(response).to have_http_status(:bad_request)
+        expect(response).to have_http_status(Gromit::GromitController::IM_A_TEAPOT)
         expect(JSON.parse(response.body)).to eq({"status"=>"unhealthy", "message"=>"Unknown command error"})
       end
 

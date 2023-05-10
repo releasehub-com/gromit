@@ -27,7 +27,7 @@ module Gromit
           if e.message == "Index already exists" 
             render json: { status: 'healthy', message: 'Redis connection is healthy' }
           else
-            render json: { status: 'unhealthy', message: "Unknown command error" }, status: :bad_request
+            render json: { status: 'unhealthy', message: "Unknown command error" }, status: IM_A_TEAPOT
           end
         else
           render json: { status: 'unhealthy', message: "Redis connection error: #{e.message}" }, status: IM_A_TEAPOT
