@@ -3,8 +3,6 @@ require 'openai'
 require 'optparse'
 require 'redis'
 require 'rejson'
-require 'active_support/all'
-
 require_relative 'markdown_parser'
 
 class Gromit::Reindexer
@@ -56,7 +54,7 @@ class Gromit::Reindexer
     sections = Gromit::MarkdownParser.process(directory)
     sections.each do |section|
       puts "indexing: #{section[:file]} section: #{section[:section_title]}"
-      data = section.stringify_keys
+      data = section.transform_keys(&:to_s)
       id = data['id']
       gromit.redis.json_set("item:#{id}", Rejson::Path.root_path, data)
     end

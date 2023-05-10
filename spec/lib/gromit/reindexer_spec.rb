@@ -62,7 +62,7 @@ RSpec.describe Gromit::Reindexer do
 
         search
       end
-      
+
       expect(Gromit::MarkdownParser).to receive(:process).with(source_dir).and_return([])
 
       subject.run(source_dir, drop: true)
@@ -74,7 +74,7 @@ RSpec.describe Gromit::Reindexer do
         allow(search).to receive(:redis).and_return(redis)
 
         sections.each do |section|
-          data = section.stringify_keys
+          data = section.transform_keys(&:to_s)
           id = data['id']
 
           expect(redis).to receive(:json_set).with("item:#{id}", 'some/root/path', data)

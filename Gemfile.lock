@@ -2,8 +2,8 @@ PATH
   remote: .
   specs:
     gromit (0.1.5)
+      activesupport
       httparty
-      rails (>= 7.0.1)
       redis (~> 4.2)
       rejson-rb (>= 1.0.1)
       ruby-openai
@@ -210,6 +210,7 @@ DEPENDENCIES
   gromit!
   pry
   pry-byebug
+  rails
   rake
   rspec
   rspec-expectations
