@@ -6,11 +6,15 @@ Your documentation search assitant
 
 Make sure to provide your OpenAI token using the `OPENAPI_ACCESS_TOKEN` environment variable.
 
-To mount the Gromit engine in Rails 7 add this line to your routes:
+To mount the Gromit engine in Rails 7, require the engine from your `Gemfile`:
 
 ```ruby
-require "gromit/engine"
+gem "gromit", require: "gromit/engine"
+```
 
+And add this line to your routes:
+
+```ruby
 Rails.application.routes.draw do
   mount Gromit::Engine => "/"
 end
