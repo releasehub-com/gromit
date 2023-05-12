@@ -1,8 +1,9 @@
+require 'active_support/inflector/methods'
 
 class Gromit::MarkdownParser
   attr_reader :sections, :file_path
 
-  class << self 
+  class << self
 
     def redis
       @@redis ||= Redis.new(host: ENV.fetch("REDIS_HOST") { "127.0.0.1" }, port: ENV.fetch("REDIS_PORT") { "6379" }.to_i)
@@ -89,14 +90,14 @@ class Gromit::MarkdownParser
 
       # remove the .md extension from the end of the URLs from gitbook
       file.gsub!(/(\[[^\]]+?\])\((.*?)\.md([#a-z0-9]*)\)/) do |match|
-        "#{$1}(#{$2}#{$3})" 
+        "#{$1}(#{$2}#{$3})"
       end
 
-      # handle "mentions" 
+      # handle "mentions"
       file.gsub!(/\[([^\]]+?).md\]\((.*?)\.md([#a-z0-9]*) "mention"\)/) do |match|
         link = "#{$2}#{$3}"
-        title = $1.gsub("-", ' ').titleize
-        "[#{title}](#{link})" 
+        title = ActiveSupport::Inflector.titleize($1.gsub("-", ' '))
+        "[#{title}](#{link})"
       end
 
       # convert gitbook hints to admonitions

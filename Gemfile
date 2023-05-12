@@ -7,8 +7,10 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 gemspec
 
 group :development do
+  gem "dotenv"
   gem "pry"
   gem "pry-byebug"
+  gem "rails"
   gem "rake"
   gem "rspec"
   gem "rspec-expectations"

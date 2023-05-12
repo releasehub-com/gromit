@@ -1,3 +1,4 @@
+require "gromit"
 require "rails"
 
 module Gromit
